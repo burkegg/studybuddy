@@ -1,0 +1,17 @@
+body {
+    background-color: lightblue;
+    display: flex;
+}
+
+.main{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.column{
+  width: 200px;
+  height: 300px;
+  color: red;
+  margin-top: 300px;
+}
