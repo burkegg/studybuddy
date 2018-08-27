@@ -85,6 +85,7 @@ export default class StudyBuddy extends React.Component {
       paddingBottom: 5,
       borderRadius: 5,
       marginBottom: 50,
+      
     }
 
     return (

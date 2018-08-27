@@ -10,6 +10,12 @@ const TextBox = styled.textarea`
   width: 182px;
 `;
 
+const NewTaskText = styled.input`
+  height: 50px;
+  margin: 5px;
+  padding: 3px;
+`;
+
 export default class AddTask extends React.Component {
   constructor(props) {
     super(props);
@@ -44,21 +50,39 @@ export default class AddTask extends React.Component {
   }
 
   render() {
+    const inputStyle = {
+      width: 180,
+      height: 100,
+      margin: 5,
+    }
+    const buttonStyle = {
+      width: 100,
+      height: 80,
+      margin: 10,
+      padding: 25,
+    }
+    const selectStyle = {
+      width: 50,
+      height: 35,
+      marginLeft: 5,
+    }
     return(
       <form onSubmit={this.handleSubmit}>
         <input
+          style={inputStyle}
           type="text"
           value={this.state.value}
           onChange={this.handleTextChange}
         />
-        <select onChange={this.handleSelect} >
+        <select onChange={this.handleSelect} style={selectStyle}>
           <option value={1}>SM</option>
           <option value={2}>MD</option>
           <option value={3}>LG</option>
         </select>
         <input
           type="submit"
-          value="New"
+          value="  New  "
+          className="submitButton"
           
         />
 
