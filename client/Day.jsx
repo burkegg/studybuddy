@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+import Task from './Task.jsx';
 
 export default class Day extends React.Component {
   constructor(props) {
@@ -10,15 +12,20 @@ export default class Day extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    const { tasks } = this.props;
-    console.log('tasks', tasks);
-    
+    const { tasks, handleSingleClick, handleDoubleClick } = this.props;    
     return (
       <div>
         {tasks.map((task) =>
-          <div>{task.text}</div>)}
+          <Task
+            id={task.id}
+            key={task.id}
+            text={task.text}
+            size={task.size}
+            handleSingleClick={handleSingleClick}
+            handleDoubleClick={handleDoubleClick}
+          />
+        )}
       </div>
-      );
+    );
   }
 }
