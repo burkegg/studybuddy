@@ -12,11 +12,12 @@ export default class Day extends React.Component {
   }
 
   render() {
-    const { tasks, handleSingleClick, handleDoubleClick } = this.props;    
+    const { tasks, handleSingleClick, handleDoubleClick, current, } = this.props;    
     return (
       <div>
         {tasks.map((task) =>
           <Task
+            current={current}
             id={task.id}
             key={task.id}
             text={task.text}

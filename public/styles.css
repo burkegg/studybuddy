@@ -1,12 +1,15 @@
 body {
     background-color: lightblue;
     display: flex;
+    font-size: 1.2em;
 }
 
 .main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+  font: 1.2em "Fira Sans", sans-serif;
 }
 
 .column{
@@ -14,4 +17,32 @@ body {
   height: 300px;
   color: red;
   margin-top: 300px;
+
+
+select{
+  font: 1.2em "Fira Sans", sans-serif;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.submitButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

@@ -67,7 +67,7 @@ export default class StudyBuddy extends React.Component {
 
   render() {
     const {
-      monday, tuesday, wednesday, thursday, friday, tonight, done,
+      monday, tuesday, wednesday, thursday, friday, tonight, done, current,
     } = this.state;
 
     // Get the height of the Day column using tonight's tasks
@@ -77,7 +77,7 @@ export default class StudyBuddy extends React.Component {
       dayHeight += item.size * 60 + 5;
     });
     const colStyle = {
-      width: 200,
+      width: 300,
       background: 'grey',
       border: 2,
       margin: 10,
@@ -85,7 +85,8 @@ export default class StudyBuddy extends React.Component {
       paddingBottom: 5,
       borderRadius: 5,
       marginBottom: 50,
-      
+      display: 'flex-col',
+
     }
 
     return (
@@ -95,6 +96,7 @@ export default class StudyBuddy extends React.Component {
         colHeight={dayHeight}
         handleDoubleClick={this.handleDoubleClick}
         handleSingleClick={this.handleSingleClick}
+        current={tonight[0]}
       />
       <AddTask handleTaskAdd={this.handleTaskAdd} />
       </div>
