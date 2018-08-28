@@ -4,33 +4,46 @@ export default class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      running: false,
       timeRemaining: null,
     }
+
   }
 
   setTimer(){
     // take in the size of the task from props
     const size = this.props.size;
     const seconds = size * 15 * 60;
-    this.setState({ timeRemaining: seconds }, () => console.log('timer', this.state))
+    this.setState({ timeRemaining: seconds })
   }
 
   startTimer(){
-    setInterval(()=>{
+    console.log('inside startTimer');
+    this.interval = setInterval(()=>{
+      if ((this.state.timeRemaining > 0) && (this.props.timer)) {
       let seconds = this.state.timeRemaining;
       seconds -= 1;
-      this.setState({ timeRemaining: seconds }, ()=>{console.log(this.state)})
+      this.setState({ timeRemaining: seconds }, ()=>{console.log(this.state)}) 
+      } else {
+        clearInterval(this.interval);
+      }
     }, 1000);
   }
 
   componentDidMount() {
     this.setTimer();
-    console.log('this.props.id', this.props.id, 'current.id', this.props.current.id);
-    if (this.props.id === this.props.current.id) {
-      this.startTimer(); 
+    console.log('timer prop inside timer = ', this.props.timer);
+    let runningState = this.props.timer;
+    if (this.props.timer) {
+      this.setState({running: runningState }, ()=> {console.log('state check', this.state.running)});
+      this.startTimer();
     }
   }
+
+  componentWillUnmount() {
+    this.setState({ running: false });
+    clearInterval(this.interval);
+  }
+
   handleTimerButton(e) {
     e.preventDefault();
     let running = this.state.running;

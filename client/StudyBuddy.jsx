@@ -3,23 +3,25 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Day from './Day.jsx';
 import AddTask from './AddTask.jsx';
+import axios from 'axios';
 
 export default class StudyBuddy extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: {text: 'math worksheet', id: 12, size:2},
-      monday: [{text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
-      tuesday: [{text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
-      wednesday: [{text: 'prank call my teachers', id: 5, size:1 }, {text:'spell stuff', id: 6, size:1}],
-      thursday: [{text: 'pull fire alarm', id: 7, size:1}, {text: 'math test', id: 8, size:3}],
-      friday: [{text: 'latin test??!!', id:9, size:3}, {text: 'honestly who learns latin anymore', id:10, size:1}],
-      tonight: [{text: 'math worksheet', id: 11, size:2}, {text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}],
+      // monday: [{text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
+      // tuesday: [{text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
+      // wednesday: [{text: 'prank call my teachers', id: 5, size:1 }, {text:'spell stuff', id: 6, size:1}],
+      // thursday: [{text: 'pull fire alarm', id: 7, size:1}, {text: 'math test', id: 8, size:3}],
+      // friday: [{text: 'latin test??!!', id:9, size:3}, {text: 'honestly who learns latin anymore', id:10, size:1}],
+      //tonight: [{text: 'math worksheet', id: 11, size:2}, {text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}],
+      tonight: [],
       done: [],
       stars: 3,
       tasksAdded: 12,
       tasksCompleted: 0,
       tasksQuit: 0,
+      timer: false,
     }
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleSingleClick = this.handleSingleClick.bind(this);
@@ -27,7 +29,6 @@ export default class StudyBuddy extends React.Component {
   }
 
   handleDoubleClick(e) {
-    console.log('inside double');
     //console.log('event', e.target.id.parseInt());
     // if the item is current and the timer is off:
     //. move it to state -> done
@@ -39,6 +40,7 @@ export default class StudyBuddy extends React.Component {
 
     e.preventDefault();
     const targetId = parseInt(e.target.id, 10);
+    console.log('targetId', targetId)
     let currentTasks = this.state.tonight;
     // iterate through the list of tasks and remove the match
     for (let idx = 0; idx < currentTasks.length; idx += 1) {
@@ -55,27 +57,45 @@ export default class StudyBuddy extends React.Component {
 
   handleSingleClick(e) {
     // if the item is current, flip the timer state
-    console.log('inside single');
+    console.log(e.target);
+    let id = parseInt(e.target.id, 10);
+    console.log('inside single', id, 'tonight[0]', this.state.tonight[0].id);
+    let currentId = this.state.tonight[0].id;
+    if (id === currentId) {
+      let currentTimer = this.state.timer;
+      currentTimer = !currentTimer;
+      this.setState({timer: currentTimer }, ()=> {console.log(this.state.timer)});
+    }
   }
 
-  handleTaskAdd(text, size) {
+  handleTaskAdd(text, difficulty) {
     let tonight = this.state.tonight;
     let id = this.state.tasksAdded + 1;
-    tonight.push({id: id, text: text, size: parseInt(size, 10) })
+    tonight.push({id: id, text: text, difficulty: parseInt(difficulty, 10) })
     this.setState({tonight: tonight, tasksAdded: id });
+  }
+
+  componentDidMount() {
+    axios.get('/tasks')
+    .then((response) => {
+      this.setState({ tonight: response.data })
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   render() {
     const {
-      monday, tuesday, wednesday, thursday, friday, tonight, done, current,
+      monday, tuesday, wednesday, thursday, friday, tonight, done, timer,
     } = this.state;
 
     // Get the height of the Day column using tonight's tasks
     let dayHeight = 0;
     tonight.forEach((item) => {
-      console.log('item inside height calc: ', item, item.size);
-      dayHeight += item.size * 60 + 5;
+      dayHeight += item.difficulty * 60 + 5;
     });
+
     const colStyle = {
       width: 300,
       background: 'grey',
@@ -97,6 +117,7 @@ export default class StudyBuddy extends React.Component {
         handleDoubleClick={this.handleDoubleClick}
         handleSingleClick={this.handleSingleClick}
         current={tonight[0]}
+        timer = {timer}
       />
       <AddTask handleTaskAdd={this.handleTaskAdd} />
       </div>
