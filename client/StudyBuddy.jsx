@@ -73,6 +73,16 @@ export default class StudyBuddy extends React.Component {
     let id = this.state.tasksAdded + 1;
     tonight.push({id: id, text: text, difficulty: parseInt(difficulty, 10) })
     this.setState({tonight: tonight, tasksAdded: id });
+    axios.post('/tasks', {
+      task: text,
+      difficulty: difficulty,
+    })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }
 
   componentDidMount() {

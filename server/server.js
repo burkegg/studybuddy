@@ -16,11 +16,18 @@ app.use((req, res, next) => {
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 
+
 app.get('/tasks', (req, res) => {
-  console.log('inside tasks yo');
   db.getAll((results) => {
       res.send(results);
   })
+})
+
+app.post('/tasks', (req, res) => {
+  console.log('inside post yo');
+  console.log('post body', req.body);
+  let data = [req.body.task, req.body.difficulty];
+  db.postOne(data);
 })
 
 app.listen(port, () => {
