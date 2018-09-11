@@ -99,7 +99,7 @@ export const MediumTime = styled(SmallText)`
   width: 227px;
   height: 20px;
   position: absolute;
-  top: 50px
+  top: 100px;
   left: 31px;
   word-wrap: break-word;
   text-align: center;
@@ -109,7 +109,7 @@ export const LargeTime = styled(SmallText)`
   width: 227px;
   height: 20px;
   position: absolute;
-  top: 50px
+  top: 160px
   left: 31px;
   word-wrap: break-word;
   text-align: center;
@@ -167,7 +167,7 @@ export const LgStopButton = styled.div`
   position: absolute;
   right: 0px;
   width: 15px;
-  background-color: red;
+  background-color: purple;
   height: 190px;
   width: 30px
   top: 0px;

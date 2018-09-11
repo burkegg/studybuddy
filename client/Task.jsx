@@ -4,8 +4,6 @@ import styled from 'styled-components';
 // import Timer from './Timer.jsx';
 import Timer from './Timer2.jsx';
 
-
-
 import {
   SmallStopButton,
   SmallStartButton,
@@ -18,6 +16,7 @@ import {
   LgShiftButton,
   LargeDeleteButton,
   LargeText,
+  LargeTime,
   SmallDeleteButton,
   SmallText,
   SmallTime,
@@ -42,7 +41,7 @@ export default class Task extends React.Component {
 
   render() {
     const { text, size, handleDoubleClick, id, current, handleSingleClick} = this.props;
-    const { timer } = this.props;
+    const { timer, handleDelete } = this.props;
     let ToRender;
     let test = 2;
     let buttonType;
@@ -85,21 +84,12 @@ export default class Task extends React.Component {
       }
     }
 
-
-    // Large Button cases:
-
-    // Handle current task that is running
-
-    // Handle current task that isn't running
-
-    // Handle not current task.
-
     if (size === 1) {
       ToRender = <SmallTask
           className="Task"
           id={id}
         >
-        <SmallDeleteButton />
+        <SmallDeleteButton onClick={handleDelete} id={id}/>
         <SmallText >
           {text}
         </SmallText>
@@ -121,7 +111,7 @@ export default class Task extends React.Component {
           className="Task"
           id={id}
         >
-        <MediumDeleteButton />
+        <MediumDeleteButton onClick={handleDelete} id={id}/>
         <MediumText >
           {text}
         </MediumText>
@@ -140,14 +130,14 @@ export default class Task extends React.Component {
           className="Task"
           id={id}
         >
-        <LargeDeleteButton />
+        <LargeDeleteButton onClick={handleDelete} id={id}/>
         <LargeText>
           {text}
         </LargeText>
         <div>
-          <MediumTime>
+          <LargeTime>
             <Timer size={size} id={id} current={current} timer={timer} duration={3600}/>
-          </MediumTime>
+          </LargeTime>
           <div>
             {buttonType}
           </div>

@@ -15,7 +15,7 @@ export default class StudyBuddy extends React.Component {
       // thursday: [{text: 'pull fire alarm', id: 7, size:1}, {text: 'math test', id: 8, size:3}],
       // friday: [{text: 'latin test??!!', id:9, size:3}, {text: 'honestly who learns latin anymore', id:10, size:1}],
       //tonight: [{text: 'math worksheet', id: 11, size:2}, {text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}],
-      tonight: [{id: 1, difficulty: 3, remaining: 45, text: 'test one'}],
+      tonight: [],
       done: [],
       stars: 3,
       tasksAdded: 12,
@@ -26,6 +26,7 @@ export default class StudyBuddy extends React.Component {
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleSingleClick = this.handleSingleClick.bind(this);
     this.handleTaskAdd = this.handleTaskAdd.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleDoubleClick(e) {
@@ -48,13 +49,24 @@ export default class StudyBuddy extends React.Component {
   }
 
   handleDelete(e) {
-    // axios.delete(`=/tasks/${targetId}`)
-    // .then(function(response) {
-    //   console.log(response);
-    // })
-    // .catch(function(error) {
-    //   console.log(error);
-    // })
+    e.preventDefault();
+    console.log('inside delete');
+    const id = e.target.id;
+    console.log(id);
+    axios.delete(`/tasks/${id}`)
+    .then(function(response) {
+      console.log(response);
+    })
+    axios.get('/tasks')
+    .then((response) => {
+      this.setState({ tonight: response.data }, ()=>{console.log('state', this.state.tonight)})
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
   }
 
   handleSingleClick(e) {
@@ -88,7 +100,7 @@ export default class StudyBuddy extends React.Component {
   componentDidMount() {
     axios.get('/tasks')
     .then((response) => {
-      this.setState({ tonight: response.data })
+      this.setState({ tonight: response.data }, ()=>{console.log('state', this.state.tonight)})
     })
     .catch(function(error) {
       console.log(error);
@@ -107,7 +119,7 @@ export default class StudyBuddy extends React.Component {
 
     const colStyle = {
       width: 300,
-      background: 'grey',
+      background: 'darkblue',
       border: 2,
       margin: 10,
       height: dayHeight + 200,
@@ -115,7 +127,6 @@ export default class StudyBuddy extends React.Component {
       borderRadius: 5,
       marginBottom: 50,
       display: 'flex-col',
-
     }
 
     return (
@@ -125,6 +136,7 @@ export default class StudyBuddy extends React.Component {
         colHeight={dayHeight}
         handleDoubleClick={this.handleDoubleClick}
         handleSingleClick={this.handleSingleClick}
+        handleDelete={this.handleDelete}
         current={tonight[0]}
         timer = {timer}
       />
