@@ -12,7 +12,7 @@ export default class Day extends React.Component {
   }
 
   render() {
-    const { tasks, handleSingleClick, handleDoubleClick, current, timer, } = this.props;
+    const { tasks, handleSingleClick, handleDoubleClick, current, timer, handleDelete } = this.props;
     return (
       <div>
         {tasks.map((task) =>
@@ -22,6 +22,7 @@ export default class Day extends React.Component {
             key={task.id}
             text={task.text}
             size={task.difficulty}
+            handleDelete={handleDelete}
             handleSingleClick={handleSingleClick}
             handleDoubleClick={handleDoubleClick}
             timer = {timer}

@@ -26,9 +26,11 @@ app.get('/tasks', (req, res) => {
 app.delete('/tasks/:id', (req, res) => {
   let id = req.params.id;
   db.deleteOne(id, (results) => {
-    res.send(results);
+    res.sendStatus(results);
   })
 });
+
+
 
 app.post('/tasks', (req, res) => {
   let data = [req.body.task, req.body.difficulty];
