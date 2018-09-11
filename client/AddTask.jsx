@@ -51,23 +51,27 @@ export default class AddTask extends React.Component {
 
   render() {
     const inputStyle = {
-      width: 180,
-      height: 100,
-      margin: 5,
+      width: 280,
+      //height: 100,
+      margin: 7,
+      fontSize: '1em',
     }
     const buttonStyle = {
       width: 100,
-      height: 80,
-      margin: 10,
-      padding: 25,
+      //height: 50,
     }
     const selectStyle = {
-      width: 50,
-      height: 35,
-      marginLeft: 5,
+      width: 100,
+      //height: 35,
+      margin: 20,
+      marginLeft: 30,
+      fontSize: '1.2em',
+    };
+    const fonty = {
+      fontSize: '1.2em',
     }
     return(
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} style={fonty}>
         <input
           style={inputStyle}
           type="text"
@@ -79,13 +83,14 @@ export default class AddTask extends React.Component {
           <option value={2}>MD</option>
           <option value={3}>LG</option>
         </select>
-        <input
-          type="submit"
-          value="  New  "
-          className="submitButton"
-          
-        />
-
+        <span className="submitButton">
+          <button
+            style={fonty}
+            className="button"
+            type="submit"
+            value="New"
+          > NEW </button>
+        </span>
       </form>
     );
   }
