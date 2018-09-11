@@ -1,0 +1,66 @@
+1:  make action types
+
+actions are bits of info for the store.
+they are dispatched.
+
+action creators:
+  - a fn that takes in input.
+  - still has the type: prop that actions need.
+  - also lets you pass data into actino.
+
+  - you'll call dispatch() on actions.
+   like: dispatch(addTodo('learn redux'))
+
+   export function name(input) {
+    return { type: the_type, input}
+   }
+
+
+2:  Reducers: 
+
+Specify how the application's state should change in response to the actions that are sent to the store
+
+function todoApp(state=initialState, action) {
+  switch(action.type) {
+  case CASE_ONE:
+    return Object.assign({}, state, {
+      the piece of state to change: something new
+    })
+  default:
+    return state
+  }
+}
+
+
+Data Lifecycle:
+
+1:  call store.dispatch(action
+ - can call store.dispatch from anywhere in your app
+
+2:  Redux store calls the reducer function you gave it.
+
+Store passes two things to reducer: current state and action
+
+3:  ROot reducer may combine output of multiple reducers into a single state tree.
+
+4: the redux store saves the complete state tree returned y the root reducer.
+- this is now the state of your app
+- every listener registered with store.subscribe(listener) will be invoked
+listeners may call store.getSTate() to get current state
+-UI can be updated w/ new state.
+-REACT_REDUX - this is the point when component.setState(newState) will be called
+
+
+Make some react components to show shit.
+
+Make some container components.  Technically, a container component is a Rct compo thtat uses store.subscribe() to get a portion of the state, which it then passes down to a presentational component that it renders.
+
+you could make a container by hand, but don't -use connect() - avoids unnecessary re-renders.
+
+to use connect() you have to define a function called: mapStateToProps().
+
+mapStateToProps() tells how to transform the redux state into the props you want to pass to a presentational component you are wrapping.  
+
+container components can dispatch actions with mapDispatchToProps() takes in a dispatch() method and returns callback props that you want to inject into the presnetational component
+
+

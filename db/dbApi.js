@@ -15,12 +15,18 @@ const postOne = function postTask (params) {
   db.query(`insert into tasks (text, difficulty) VALUES (?, ?)`,params, (err, data) => {
     if (err) {
       throw err;
-    } else {
-      console.log(201)
     }
   });
 }
 
-// postOne(['adsfasfd', 3], ()=>{console.log('posted')});
-// getAll((asdf)=>{console.log(asdf)});
-module.exports = { getAll, postOne };
+const deleteOne = function deleteTask (params, callback) {
+  db.query(`delete from tasks where id = (?)`, params, (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      callback(201);
+    }
+  })
+}
+
+module.exports = { getAll, postOne, deleteOne };

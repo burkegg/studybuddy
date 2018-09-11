@@ -12,7 +12,7 @@ export default class Day extends React.Component {
   }
 
   render() {
-    const { tasks, handleSingleClick, handleDoubleClick, current, timer, } = this.props;    
+    const { tasks, handleSingleClick, handleDoubleClick, current, timer, } = this.props;
     return (
       <div>
         {tasks.map((task) =>

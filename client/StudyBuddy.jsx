@@ -15,7 +15,7 @@ export default class StudyBuddy extends React.Component {
       // thursday: [{text: 'pull fire alarm', id: 7, size:1}, {text: 'math test', id: 8, size:3}],
       // friday: [{text: 'latin test??!!', id:9, size:3}, {text: 'honestly who learns latin anymore', id:10, size:1}],
       //tonight: [{text: 'math worksheet', id: 11, size:2}, {text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}],
-      tonight: [],
+      tonight: [{id: 1, difficulty: 3, remaining: 45, text: 'test one'}],
       done: [],
       stars: 3,
       tasksAdded: 12,
@@ -29,42 +29,42 @@ export default class StudyBuddy extends React.Component {
   }
 
   handleDoubleClick(e) {
-    //console.log('event', e.target.id.parseInt());
-    // if the item is current and the timer is off:
-    //. move it to state -> done
-    // if the item is not current, move it to current
-    // stop all timers
-
-    // FIRST PASS: just remove it from tonight
-    // and add it to done.
 
     e.preventDefault();
     const targetId = parseInt(e.target.id, 10);
-    console.log('targetId', targetId)
     let currentTasks = this.state.tonight;
+    this.setState({ timer: false });
     // iterate through the list of tasks and remove the match
     for (let idx = 0; idx < currentTasks.length; idx += 1) {
       if ((currentTasks[idx].id === targetId) && (idx === 0)) {
         currentTasks.splice(idx, 1);
       } else if (currentTasks[idx].id === targetId) {
-        console.log('inside else');
         let temp = currentTasks.splice(idx, 1);
         currentTasks.unshift(temp[0]);
       }
     }
     this.setState({ tonight : currentTasks })
+
+  }
+
+  handleDelete(e) {
+    // axios.delete(`=/tasks/${targetId}`)
+    // .then(function(response) {
+    //   console.log(response);
+    // })
+    // .catch(function(error) {
+    //   console.log(error);
+    // })
   }
 
   handleSingleClick(e) {
     // if the item is current, flip the timer state
-    console.log(e.target);
     let id = parseInt(e.target.id, 10);
-    console.log('inside single', id, 'tonight[0]', this.state.tonight[0].id);
     let currentId = this.state.tonight[0].id;
     if (id === currentId) {
       let currentTimer = this.state.timer;
       currentTimer = !currentTimer;
-      this.setState({timer: currentTimer }, ()=> {console.log(this.state.timer)});
+      this.setState({timer: currentTimer });
     }
   }
 
@@ -99,7 +99,6 @@ export default class StudyBuddy extends React.Component {
     const {
       monday, tuesday, wednesday, thursday, friday, tonight, done, timer,
     } = this.state;
-
     // Get the height of the Day column using tonight's tasks
     let dayHeight = 0;
     tonight.forEach((item) => {

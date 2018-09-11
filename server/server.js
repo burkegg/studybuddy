@@ -23,9 +23,14 @@ app.get('/tasks', (req, res) => {
   })
 })
 
+app.delete('/tasks/:id', (req, res) => {
+  let id = req.params.id;
+  db.deleteOne(id, (results) => {
+    res.send(results);
+  })
+});
+
 app.post('/tasks', (req, res) => {
-  console.log('inside post yo');
-  console.log('post body', req.body);
   let data = [req.body.task, req.body.difficulty];
   db.postOne(data);
 })
