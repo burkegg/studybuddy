@@ -9,12 +9,7 @@ export default class StudyBuddy extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // monday: [{text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
-      // tuesday: [{text: 'learn the alphabet', id: 3, size:3}, {text: 'rock out', id: 4, size:1}],
-      // wednesday: [{text: 'prank call my teachers', id: 5, size:1 }, {text:'spell stuff', id: 6, size:1}],
-      // thursday: [{text: 'pull fire alarm', id: 7, size:1}, {text: 'math test', id: 8, size:3}],
-      // friday: [{text: 'latin test??!!', id:9, size:3}, {text: 'honestly who learns latin anymore', id:10, size:1}],
-      //tonight: [{text: 'math worksheet', id: 11, size:2}, {text: 'write a paper!', id: 1, size: 3}, {text:'do some math!', id: 2, size:1}, {text: 'learn the alphabet', id: 3, size:3}],
+      
       tonight: [],
       done: [],
       stars: 3,
